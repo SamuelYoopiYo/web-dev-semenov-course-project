@@ -1,0 +1,90 @@
+:root {
+    --color-1: rgb(66, 145, 209);
+    --color-2:rgb(255, 255, 255);
+  }
+  *{
+    margin:0;
+    padding: 0;
+  }
+  html{
+    background-color: var(--color-2);
+  }
+
+header, footer{
+    background-color: var(--color-1);
+}
+
+main{
+    min-height: 100vh;
+    background-color: var(--color-2);
+}
+footer{
+    margin-bottom: 0;
+    padding-bottom: 5vh;
+}
+
+footer a{
+  text-decoration: none;
+  color:white;
+}
+.about-site .bi{
+  font-size: 200px;
+  color:white;
+}
+/*------------------------------------------------------------*/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.pagination__list {
+  display: flex;
+  list-style-type: none;  
+}
+
+.pagination__item {
+  padding: 8px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.pagination__item--active {
+  text-decoration: underline;
+}
+/*-------------------------------------------------------*/
+#map {
+  width: 80vw;
+  height: 50vw;
+}
+
+@media (max-width: 767px) {
+  .computer { 
+    display: none;
+  }
+}
+/* ------------------------------------ */
+p{
+  font-family: 'Playfair Display', serif;
+}
+
+.photo{
+  width: 70%;
+}
+
+.filterplace{
+  min-height: 70px;
+  text-align: bottom;
+}
+#current-page {
+  background-color: rgb(253, 255, 255);
+  color:black;
+}
+.pagination a{
+  margin: 3px;
+}
+
+.search input{
+  padding: 5px;
+}

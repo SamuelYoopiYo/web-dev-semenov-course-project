@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style/styleIndex.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=5bf9531b-4adf-4788-8f43-5e042df3061f&lang=ru_RU"
+        type="text/javascript"></script>
+    <script src="js/index.js"></script>
+
+    <title>Playground Finder Moscow</title>
+</head>
+
+<body>
+    <header>
+        <div class="container overflow-hidden">
+            <div class="row">
+                <div class="col-1 text-center">
+                    
+                </div>
+                <div class="col-10">
+                    <p class="text-center fs-1 title">Playground Finder Moscow</p>
+                </div>
+                <div class="col-1 p-3">
+                    <a href="php/regist.php"><button class="btn btn-primary">Войти</button></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container about-site">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="img/photoAbout.png" alt="Не удалось загрузить логотип" class="photo computer">
+                </div>
+                <div class="col-md-8 fs-5">
+                    <p>"Welcome to Playground Finder Moscow - ваш путеводитель по спортивным площадкам в Москве!</p>
+                    <p> Наш сайт предлагает широкий выбор спортивных площадок для всех возрастов и интересов. У нас вы
+                        найдете идеальное место для
+                        занятий спортом и активного образа жизни. </p>
+                    <p>Используйте нашу удобную платформу, чтобы исследовать,
+                        сравнить и найти лучшую спортивную площадку в вашем районе или по всей Москве. Начните прямо
+                        сейчас и откройте весь потенциал вашей спортивной жизни!"</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4 ">
+
+        <div class="title-table">
+            <p class="fs-4 text-center">Давайте подберем идеальную площадку для вас</p>
+        </div>
+
+        <div class="map container">
+            <div class="row justify-content-center">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <div class="container found">
+            <div class="row justify-content-between mt-4">
+                <div class="col-lg-12">
+                    <div class="input-group mb-3 justify-content-center">
+                        <form>
+                            <input class="form-control " type="text" placeholder="Поиск по адресу" aria-label="search">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <p class="text-center">Выводить по <select name="countPosts" id="limitPosts">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20" selected>20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>записей</p>
+        </div>
+        <div class="container filter">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="coveringFilter">Тип покрытия:</label>
+                    <select class="form-select filterArea" id="coveringFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="газонное покрытие (искусственное)">газонное покрытие (искусственное)</option>
+                        <option value="специальное покрытие">специальное покрытие</option>
+                        <option value="заливное покрытие">заливное покрытие</option>
+                        <option value="грунтовое покрытие">грунтовое покрытие</option>
+                        <option value="отсыпное покрытие">отсыпное покрытие</option>
+                        <option value="асфальтовое, бетонное покрытие">асфальтовое, бетонное покрытие</option>
+                        <option value="газонное покрытие (натуральное)">газонное покрытие (натуральное)</option>
+                        <option value="рулонное покрытие">рулонное покрытие</option>
+                        <option value="деревянное покрытие">деревянное покрытие</option>
+                        <option value="искусственный лед">искусственный лед</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="lockerRoomFilter">Раздевалка:</label>
+                    <select class="form-select filterArea" id="lockerRoomFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="да">Есть</option>
+                        <option value="нет">Нет</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="foodFilter">Питание:</label>
+                    <select class="form-select filterArea" id="foodFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="да">Есть</option>
+                        <option value="нет">Нет</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="toiletFilter">Туалет:</label>
+                    <select class="form-select filterArea" id="toiletFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="да">Есть</option>
+                        <option value="нет">Нет</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="wifiFilter">Wi-Fi:</label>
+                    <select class="form-select filterArea" id="wifiFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="да">Есть</option>
+                        <option value="нет">Нет</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="lightFilter">Освещение:</label>
+                    <select class="form-select filterArea" id="lightFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="смешанное освещение">смешанное освещение</option>
+                        <option value="без дополнительного освещения">без дополнительного освещения</option>
+                        <option value="освещение лампами накаливания">освещение лампами накаливания</option>
+                        <option value="освещение газоразрядными лампами">освещение газоразрядными лампами</option>
+                        <option value="освещение светодиодными лампами">освещение светодиодными лампами</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="priceFilter">Платно:</label>
+                    <select class="form-select filterArea" id="priceFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="да">Да</option>
+                        <option value="нет">Нет</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="disabledFilter">Для инвалидов:</label>
+                    <select class="form-select filterArea" id="disabledFilter">
+                        <option value="all" selected>Все</option>
+                        <option value="не приспособлен">не приспособлен</option>
+                        <option value="частично приспособлен">частично приспособлен</option>
+                        <option value="приспособлен для лиц с нарушением ОДА">приспособлен для лиц с нарушением ОДА
+                        </option>
+                        <option value="приспособлен для всех групп инвалидов">приспособлен для всех групп инвалидов
+                        </option>
+                        <option value="приспособлен для инвалидов по слуху">приспособлен для инвалидов по слуху</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="container posts"></div>
+        <div class="container pagination"></div>
+        </div>
+    </main>
+    <footer>
+        <p class="text-center fs-6">Все права защищены</p>
+        <p class="text-center fs-6">Данные взяты из <a href="https://data.mos.ru">портала открытых данных</a></p>
+        <p class="text-center fs-6">Наши контакты</p>
+        <p class="text-center fs-6"><a href="tel:+79537130547">+7 (953) 7130547</a></p>
+        <p class="text-center fs-6"><a href="mailto:smnvsrg@yandex.ru">smnvsrg@yandex.ru</a></p>
+    </footer>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="a" нет"nymous">
+
+
+</body>
+
+</html>
