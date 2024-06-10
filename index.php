@@ -23,6 +23,16 @@ $entriesPerPage = 50;
 $countPage = ceil(count($arr_res) / $entriesPerPage);
 $subarr_res = array_slice($arr_res, ($page - 1) * $entriesPerPage, $entriesPerPage);
 
+if (isset($_POST['address']) && $_POST['address'] !== "") {
+    $res_search = array();
+    foreach ($arr_res as $address_i) {
+        if (mb_stripos($address_i['Address'], $_POST['address'])) {
+            $res_search[] = $address_i;
+        }
+    }
+    $countPage = floor(count($res_search) / $entriesPerPage);
+    $subarr_res = array_slice($res_search, ($page - 1) * $entriesPerPage, $entriesPerPage);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,8 +100,8 @@ $subarr_res = array_slice($arr_res, ($page - 1) * $entriesPerPage, $entriesPerPa
             <p class="fs-4 text-center">Давайте подберем идеальную площадку для вас</p>
         </div>
 
-        <div class="map">
-            <div id="yandexMap" style="width: 100%; height: 590px;"></div>
+        <div class="map container">
+            <div id="yandexMap" class="text-center" style="width: 80%; height: 590px;"></div>
         </div>
         <script>
             ymaps.ready(init);
@@ -106,15 +116,20 @@ $subarr_res = array_slice($arr_res, ($page - 1) * $entriesPerPage, $entriesPerPa
                 });
 
                 <?php
-                foreach ($arr_res as $row) :
-                    // Получение координат трассы
+                if (isset($_POST['address']) && $_POST['address'] !== "") {
+                    $arr_coord = $res_search;
+                }else{
+                    $arr_coord = $arr_res;
+                }
+                
+                foreach ($arr_coord as $row) :
                     $latitude = explode(",", $row['geoData'])[0];
                     $longitude = explode(",", $row['geoData'])[1];
                     $id = $row['global_id'];
                     $color = "#1E90FF";
                     if (isset($_SESSION['user'])) {
                         if (!empty($_SESSION['user']['favoriteGrounds']) && in_array($id, array_column($_SESSION['user']['favoriteGrounds'], 'global_id'))) {
-                            $color =  '#ff0000'; // Указан неправильный цвет, должно быть '#ff0000', а не '#ff000'
+                            $color =  '#ff0000';
                         }
                     }
                 ?>
@@ -167,18 +182,7 @@ $subarr_res = array_slice($arr_res, ($page - 1) * $entriesPerPage, $entriesPerPa
             });
         </script>
 
-        <?php
-        if (isset($_POST['address']) && $_POST['address'] !== "") {
-            $res_search = array();
-            foreach ($arr_res as $address_i) {
-                if (mb_stripos($address_i['Address'], $_POST['address'])) {
-                    $res_search[] = $address_i;
-                }
-            }
-            $countPage = floor(count($res_search) / $entriesPerPage);
-            $subarr_res = array_slice($res_search, ($page - 1) * $entriesPerPage, $entriesPerPage);
-        }
-        ?>
+
 
 
         <div class="container posts">

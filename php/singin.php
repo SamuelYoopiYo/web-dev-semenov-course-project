@@ -14,7 +14,7 @@ if (mysqli_num_rows($check_user) == 1) {
     $user_info = mysqli_query($mysql, "SELECT * FROM `user_info` WHERE `id` = " . $user_log_info['id_user_info'] . ";");
     $user = mysqli_fetch_assoc($user_info);
 
-    $favoriteGroundInfoQuery = mysqli_query($mysql, "SELECT global_id, ObjectName, CONCAT(District,' ', Address) as Address FROM featured JOIN info_playground WHERE id_info_playground = global_id AND id_users_log = " . $user_log_info['id'] . ";");    
+    $favoriteGroundInfoQuery = mysqli_query($mysql, "SELECT global_id, ObjectName, CONCAT(District,' ', Address) as Address, `geoData`  FROM featured JOIN info_playground WHERE id_info_playground = global_id AND id_users_log = " . $user_log_info['id'] . ";");    
     $favoriteGroundInfo = array();
     while ($row = mysqli_fetch_assoc($favoriteGroundInfoQuery)) {
         $favoriteGroundInfo[] = $row;
