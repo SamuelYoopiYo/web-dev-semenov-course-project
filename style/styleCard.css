@@ -30,14 +30,17 @@ footer a{
     color:white;
   }
 
-  #map {
+  #yandexMap {
     width: 50vw;
     height: 30vw;
-    margin: 15px;
+    margin: 15px auto;
   }
   .full-width-link {
     display: block;
     width: 100%;
     height: 100%;
     padding: 10px;
+  }
+  .mainInfo{
+    margin-bottom: 80px;
   }

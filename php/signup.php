@@ -11,7 +11,7 @@ $password_repit = md5($_POST['password_repit']);
 
 // if($password)
 if ($password === $password_repit) {
-    $checkerQuery = mysqli_query($mysql, "SELECT * FROM user_log WHERE login = " . $login . " AND password = " . $password . ";");
+    $checkerQuery = mysqli_query($mysql, "SELECT * FROM user_log WHERE login = '" . $login . "' AND password = '" . $password . "';");
     if (mysqli_num_rows($checkerQuery) != 0) {
         $_SESSION['message'] = 'Такой пользователь уже существует';
         header('Location: regist.php');

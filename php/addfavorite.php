@@ -7,8 +7,7 @@ $favoriteGroundAdd = mysqli_query($mysql, "INSERT INTO featured (id_users_log, i
 
 if ($favoriteGroundAdd) {
     $_SESSION['message'] = 'Площадка успешно добавлена в избранное.';
-    $favoriteGroundInfoQuery = mysqli_query($mysql, "SELECT global_id, ObjectName, CONCAT(District,' ', Address) as Address FROM featured JOIN info_playground WHERE id_info_playground = global_id AND id_users_log = " . $_SESSION['user']['id'] . ";");
-    $favoriteGroundInfo = array();
+    $favoriteGroundInfoQuery = mysqli_query($mysql, "SELECT global_id, ObjectName, CONCAT(District,' ', Address) as Address, geoData FROM featured JOIN info_playground WHERE id_info_playground = global_id AND id_users_log = " . $_SESSION['user']['id'] . ";");    $favoriteGroundInfo = array();
     while ($row = mysqli_fetch_assoc($favoriteGroundInfoQuery)) {
         $favoriteGroundInfo[] = $row;
     }

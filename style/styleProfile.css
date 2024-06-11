@@ -29,3 +29,11 @@ footer a{
     text-decoration: none;
     color:white;
   }
+  #yandexMap {
+    width: 80vw;
+    height: 50vw;
+    margin: 30px auto;
+  }
+  .posts{
+    margin-bottom: 20vh;
+  }

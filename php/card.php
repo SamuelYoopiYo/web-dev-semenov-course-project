@@ -42,15 +42,15 @@ while ($row = mysqli_fetch_assoc($infoGroundByIdQuery)) {
             <div class="row align-items-center">
                 <div class="col-2"></div>
                 <div class="col-8">
-                    <p class="fs-2 text-center "> Описание площадки</p>
+                    <p class="fs-2 text-center "> Playground Finder Moscow</p>
                 </div>
                 <div class="col-2">
                     <?php
                     if (isset($_SESSION['user'])) {
                         if (in_array($id, array_column($_SESSION['user']['favoriteGrounds'], 'global_id'))) {
-                            echo '<th><a href="deleteFavorite.php?id=' .  $id  . '&source=card&presourse=' . $_GET['source'] . '"><button class="btn btn-primary like-btn">&#128465;</button></a>';
+                            echo '<th><a href="deleteFavorite.php?id=' .  $id  . '&source=card&presourse=' . $_GET['source'] . '"><button class="btn btn-primary like-btn"><img src="../img/fill-heart.png"width="20px" height="20px "></button></a>';
                         } else {
-                            echo '<th><a href="addFavorite.php?id=' .  $id  . '&source=card&presourse=' . $_GET['source'] . '"><button class="btn btn-primary like-btn">&hearts;</button></a>';
+                            echo '<th><a href="addFavorite.php?id=' .  $id  . '&source=card&presourse=' . $_GET['source'] . '"><button class="btn btn-primary like-btn"><img src="../img/empty-heart.png"width="20px" height="20px "></button></a>';
                         }
                     }
                     ?>
@@ -63,62 +63,68 @@ while ($row = mysqli_fetch_assoc($infoGroundByIdQuery)) {
                         echo 'profile.php';
                     }
                     ?>
-                    "><button class="btn btn-primary">Назад</button><a>
+                    "><button class="btn btn-primary"><img src="../img/back.png"width="20px" height="20px "></button><a>
+
                 </div>
             </div>
-
+            <div class="row align-items-center">
+                    <div class="col-12 text-center">
+                        <p class="fs-3">Описание площадки</p>
+                    </div>
+                </div>
         </div>
     </header>
 
     <main>
-        <?= $infoGroundById[0]['geoData']//dddddddddddddddddddddddddddddddd?>
-        <div class="map container">
-            <div id="yandexMap" class="text-center" style="width: 80%; height: 590px;"></div>
-        </div>
-        <script>
-            ymaps.ready(init);
+        <div class="map container text-center">
+            <div id="yandexMap" class = "row">
+                <script>
+                    ymaps.ready(init);
 
-            // Функция инициализации карты
-            function init() {
-                <?php
-                    $latitude = explode(",", $infoGroundById[0]['geoData'])[0];
-                    $longitude = explode(",", $infoGroundById[0]['geoData'])[1];
-                ?>
-                // Создание объекта карты
-                var myMap = new ymaps.Map('yandexMap', {
-                    center: [<?= $longitude ?>, <?= $latitude ?>], // Координаты центра карты (центр Москвы)
-                    zoom: 14 // Уровень масштабирования
-                });
-
-                
-                    // Создание метки на карте с координатами трассы
-                    var placemark = new ymaps.Placemark([<?= $longitude ?>, <?= $latitude ?>], {
-                        hintContent: '<?= $infoGroundById[0]["ObjectName"] ?>',
-                        balloonContent: 'Название объекта: <?= $infoGroundById[0]["ObjectName"] ?><br>Адрес: <?= $infoGroundById[0]["AdmArea"]." ".$infoGroundById[0]["District"]." ".$infoGroundById[0]["Address"] ?>'
-                    }, {
-                        iconColor: '#ff0000'
-                    });
-                    myMap.geoObjects.add(placemark);
+                    // Функция инициализации карты
+                    function init() {
+                        <?php
+                        $latitude = explode(",", $infoGroundById[0]['geoData'])[0];
+                        $longitude = explode(",", $infoGroundById[0]['geoData'])[1];
+                        ?>
+                        // Создание объекта карты
+                        var myMap = new ymaps.Map('yandexMap', {
+                            center: [<?= $longitude ?>, <?= $latitude ?>], // Координаты центра карты (центр Москвы)
+                            zoom: 14 // Уровень масштабирования
+                        });
 
 
-                var searchControlRight = new ymaps.control.SearchControl({
-                    options: {
-                        noPlacemark: true,
-                        float: 'right',
-                        provider: 'yandex#search'
+                        // Создание метки на карте с координатами площадки
+                        var placemark = new ymaps.Placemark([<?= $longitude ?>, <?= $latitude ?>], {
+                            hintContent: '<?= $infoGroundById[0]["ObjectName"] ?>',
+                            balloonContent: 'Название объекта: <?= $infoGroundById[0]["ObjectName"] ?><br>Адрес: <?= $infoGroundById[0]["AdmArea"] . " " . $infoGroundById[0]["District"] . " " . $infoGroundById[0]["Address"] ?>'
+                        }, {
+                            iconColor: '#ff0000'
+                        });
+                        myMap.geoObjects.add(placemark);
+
+
+                        var searchControlRight = new ymaps.control.SearchControl({
+                            options: {
+                                noPlacemark: true,
+                                float: 'right',
+                                provider: 'yandex#search'
+                            }
+                        });
+
+                        // Добавление поискового контрола на карту
+                        myMap.controls.add(searchControlRight);
+
+                        // Обработка события изменения границ карты 
+                        myMap.events.add('boundschange', function(event) {
+                            // Установка границ для поискового контрола, основанного на событии изменения границ
+                            searchControlRight.options.set('boundedBy', event.get('newBounds'));
+                        });
                     }
-                });
+                </script>
+            </div>
+        </div>
 
-                // Добавление поискового контрола на карту
-                myMap.controls.add(searchControlRight);
-
-                // Обработка события изменения границ карты 
-                myMap.events.add('boundschange', function(event) {
-                    // Установка границ для поискового контрола, основанного на событии изменения границ
-                    searchControlRight.options.set('boundedBy', event.get('newBounds'));
-                });
-            }
-        </script>
 
         <div class="mainInfo container">
             <table class="table table-striped">
@@ -135,13 +141,13 @@ while ($row = mysqli_fetch_assoc($infoGroundByIdQuery)) {
                     ?>
                         <tr>
                             <th><?= $row['ru_name'] ?></th>
-                            <th><?php 
-                            if(!empty($infoGroundById[0][$row['en_name']])){
-                                echo $infoGroundById[0][$row['en_name']];
-                            }else{
-                                echo '-';
-                            }
-                            ?></th>
+                            <th><?php
+                                if (!empty($infoGroundById[0][$row['en_name']])) {
+                                    echo $infoGroundById[0][$row['en_name']];
+                                } else {
+                                    echo '-';
+                                }
+                                ?></th>
                         </tr>
                     <?php
                     }

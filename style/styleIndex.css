@@ -54,9 +54,10 @@ footer a{
   text-decoration: underline;
 }
 /*-------------------------------------------------------*/
-#map {
+#yandexMap {
   width: 80vw;
   height: 50vw;
+  margin: 0 auto;
 }
 
 @media (max-width: 767px) {
@@ -87,4 +88,5 @@ p{
 
 .search input{
   padding: 5px;
+  margin-top: 25px;
 }

@@ -41,7 +41,7 @@ button {
     background-color: #4141c9;
     padding: 10px;
     font-weight: bold;
-    color:white;
+    color: white;
     border: unset;
     cursor: pointer;
 }
@@ -56,4 +56,9 @@ button {
 
 .logout {
     color: #db8c86;
+}
+
+
+#left-btn {
+    margin-left:10px;
 }
